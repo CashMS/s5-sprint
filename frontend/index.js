@@ -31,8 +31,6 @@ async function sprintChallenge5() {
 
   await getData();
 
-  console.log(mentors);
-
   // 👆 ==================== TASK 1 END ====================== 👆
 
   // 👇 ==================== TASK 2 START ==================== 👇
@@ -49,6 +47,36 @@ async function sprintChallenge5() {
   //     "Grace Hopper"
   //   ]`
   // }
+
+  const learn = learners.map((learner) => {
+    const mentorIds = learner.mentors;
+    const mentorNames = [];
+    mentorIds.forEach(mentorId => {
+      const mentor = mentors.find(m => m.id === mentorId);
+      if (mentor) {
+        mentorNames.push(mentor.firstName + ' ' + mentor.lastName);
+      }
+    })
+    return { 
+      learnerName: learner.fullName,
+      mentorNames: mentorNames.length > 0 ? mentorNames : null
+    }
+  })
+
+  let num = 0;
+  learners.forEach((learner) => {
+    if (learner.fullName === learn[num].learnerName) {
+      learner.mentors[0] = learn[num].mentorNames[0];
+      learner.mentors[1] = learn[num].mentorNames[1];
+    } else {
+      console.log(learner.fullName + ' False');
+    }
+    if (learner.fullName === learn[num].learnerName && learner.mentors.length === 3) {
+      learner.mentors[2] = learn[num].mentorNames[2];
+    }
+    num++;
+  })
+  console.log(learners)
 
   // 👆 ==================== TASK 2 END ====================== 👆
 
@@ -69,10 +97,30 @@ async function sprintChallenge5() {
     // ❗ Inspect the mock site closely to understand what the initial texts and classes look like!
 
     const card = document.createElement("div");
+    card.classList.add('card');
+
     const heading = document.createElement("h3");
+    heading.textContent = learner.fullName;
+
     const email = document.createElement("div");
+    email.textContent = learner.email;
+
     const mentorsHeading = document.createElement("h4");
+    mentorsHeading.classList.add('closed');
+    mentorsHeading.textContent = 'Mentors';
+
     const mentorsList = document.createElement("ul");
+
+    card.appendChild(heading);
+    card.appendChild(email);
+    card.appendChild(mentorsHeading);
+    mentorsHeading.appendChild(mentorsList);
+
+    learner.mentors.forEach(e => {
+      const ment = document.createElement('li');
+      ment.textContent = e;
+      mentorsList.appendChild(ment);
+    })
 
     // 👆 ==================== TASK 3 END ====================== 👆
 
