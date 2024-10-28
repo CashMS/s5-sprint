@@ -65,18 +65,26 @@ async function sprintChallenge5() {
 
   let num = 0;
   learners.forEach((learner) => {
-    if (learner.fullName === learn[num].learnerName) {
+    if (learner.fullName === learn[num].learnerName && learner.mentors.length === 1) {
+      learner.mentors[0] = learn[num].mentorNames[0];
+    }
+    if (learner.fullName === learn[num].learnerName && learner.mentors.length === 2) {
       learner.mentors[0] = learn[num].mentorNames[0];
       learner.mentors[1] = learn[num].mentorNames[1];
-    } else {
-      console.log(learner.fullName + ' False');
     }
     if (learner.fullName === learn[num].learnerName && learner.mentors.length === 3) {
+      learner.mentors[0] = learn[num].mentorNames[0];
+      learner.mentors[1] = learn[num].mentorNames[1];
       learner.mentors[2] = learn[num].mentorNames[2];
+    }
+    if (learner.fullName === learn[num].learnerName && learner.mentors.length === 4) {
+      learner.mentors[0] = learn[num].mentorNames[0];
+      learner.mentors[1] = learn[num].mentorNames[1];
+      learner.mentors[2] = learn[num].mentorNames[2];
+      learner.mentors[3] = learn[num].mentorNames[3];
     }
     num++;
   })
-  console.log(learners)
 
   // 👆 ==================== TASK 2 END ====================== 👆
 
